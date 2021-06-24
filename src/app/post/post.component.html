@@ -1,0 +1,41 @@
+
+<form class="spacer" [formGroup]="form">
+    <legend>New Post </legend>
+    <div class="form-group">
+        <label for="title">Title</label>
+        <input [(ngModel)]="post.title" formControlName="title" type="text" class="form-control" id="title" placeholder="Title">
+    <div class="alert alert-danger" *ngIf="title.touched && title.invalid">
+        <div *ngIf="title.errors.required">title is required !!</div> 
+        <div *ngIf="title.errors.minlength">title doit contenir au moin
+            {{title.errors.minlength.actualLength}} / {{title.errors.minlength.requiredLength}} </div> 
+    </div>
+    </div>
+
+    <div class="form-group">
+        <label for="body">Body</label>
+        <textarea   [(ngModel)]="post.body"  formControlName="body" type="text" class="form-control" id="body" placeholder="Body"></textarea>
+        <div class="alert alert-danger" *ngIf="body.touched && body.invalid">
+           <div *ngIf="body.errors.required">body is required !!</div> 
+           <div *ngIf="body.errors.minlength">body doit contenir au moin  {{body.errors.minlength.actualLength}} / {{body.errors.minlength.requiredLength}} </div> 
+         </div>
+    </div><br>
+<button (click)="creatPost(post)" class="btn btn-primary" *ngIf="status">Add</button>
+<button (click)="updatePost(post)" class="btn btn-warning" *ngIf="!status">Update</button>
+
+</form><br>
+<ul class="lit-group spacer">
+    <li class="list-group-item" *ngFor="let post of posts">
+        <h4>
+            {{post.title}}
+        </h4>
+   
+        <p>
+            {{post.body}}
+        </p>
+        <div align="right">
+            <button (click)="onEdit(post)" type="button" class="btn btn-warning">Edit</button>&nbsp;
+            <button (click)="deletePost(post)" type="button" class="btn btn-danger" >Delete</button>
+
+        </div>
+    </li>
+</ul>
